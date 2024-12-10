@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Form</title>
+</head>
+<body>
+    <h1>Appointment Form</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Existing Appointments</h2>
+    <ul>
+        {% for appointment in appointments %}
+            <li>
+                <strong>{{ appointment.name }}</strong> ({{ appointment.email }}) - 
+                <a href="{% url 'appointment_update' appointment.id %}">Edit</a> | 
+                <a href="{% url 'appointment_delete' appointment.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
